@@ -34,3 +34,17 @@ button:hover {
     width: 100%;
     margin: 10px 0;
 }
+/* スマホ対応のレスポンシブデザイン */
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    .container {
+        padding: 15px;
+        font-size: 14px;
+    }
+    button {
+        font-size: 14px;
+        padding: 8px 15px;
+    }
+}
