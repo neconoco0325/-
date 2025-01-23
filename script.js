@@ -33,8 +33,27 @@ const quizData = [
 
 let currentQuestion = 0;
 let score = 0;
+let timer;
+let timeLeft = 30; // 1問あたり30秒
+
+function startTimer() {
+    timeLeft = 30;
+    const timerElement = document.getElementById("timer");
+    timerElement.textContent = `残り時間: ${timeLeft}秒`;
+    timer = setInterval(() => {
+        timeLeft--;
+        timerElement.textContent = `残り時間: ${timeLeft}秒`;
+        if (timeLeft <= 0) {
+            clearInterval(timer);
+            nextQuestion();
+        }
+    }, 1000);
+}
 
 function loadQuestion() {
+    clearInterval(timer);
+    startTimer();
+
     const questionData = quizData[currentQuestion];
     const questionElement = document.getElementById("question");
     const answersElement = document.getElementById("answers");
@@ -54,20 +73,21 @@ function loadQuestion() {
 }
 
 function checkAnswer(selected) {
+    clearInterval(timer);
     const questionData = quizData[currentQuestion];
-    const nextButton = document.getElementById("next-button");
-
     if (selected === questionData.answer) {
         score++;
         alert("正解です！");
     } else {
-        alert("不正解です。");
+        alert(`不正解です！正解は「${questionData.options[questionData.answer]}」です。`);
     }
+    nextQuestion();
+}
 
+function nextQuestion() {
     currentQuestion++;
-
     if (currentQuestion < quizData.length) {
-        nextButton.style.display = "block";
+        loadQuestion();
     } else {
         showScore();
     }
@@ -77,11 +97,13 @@ function showScore() {
     const quizContainer = document.getElementById("quiz-container");
     const scoreContainer = document.getElementById("score-container");
     const scoreElement = document.getElementById("score");
+    const detailsElement = document.getElementById("details");
 
     quizContainer.style.display = "none";
     scoreContainer.style.display = "block";
 
     scoreElement.textContent = `あなたのスコアは ${score} / ${quizData.length} です。`;
+    detailsElement.textContent = "復習したい場合はもう一度挑戦してください！";
 }
 
 function startQuiz() {
@@ -97,6 +119,6 @@ function startQuiz() {
     loadQuestion();
 }
 
-document.getElementById("next-button").onclick = loadQuestion;
+document.getElementById("next-button").onclick = nextQuestion;
 
 startQuiz();
