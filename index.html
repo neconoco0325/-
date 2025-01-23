@@ -3,20 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>工業簿記 学習アプリ</title>
+    <title>日商簿記2級 練習アプリ</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="container">
-        <h1>工業簿記クイズ</h1>
+        <h1>日商簿記2級 練習問題</h1>
         <div id="quiz-container">
             <div id="question"></div>
             <div id="answers"></div>
+            <div id="timer"></div>
         </div>
         <button id="next-button" style="display:none;">次の問題</button>
         <div id="score-container" style="display:none;">
             <h2>結果</h2>
             <p id="score"></p>
+            <p id="details"></p>
             <button onclick="startQuiz()">もう一度挑戦</button>
         </div>
     </div>
